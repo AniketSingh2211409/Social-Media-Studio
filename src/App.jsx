@@ -14,17 +14,21 @@ export default function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idea: `${idea} (${tone} tone)` }),
-      });
+      const res = await fetch(
+        "https://social-media-backend-i3hj.onrender.com/generate", // ✅ FIXED
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ idea: `${idea} (${tone} tone)` }),
+        }
+      );
 
       const data = await res.json();
       setSlides(data.slides || []);
-    } catch {
+    } catch (err) {
+      console.log(err);
       alert("Server error");
     }
 
@@ -43,7 +47,6 @@ export default function App() {
     link.click();
   };
 
-  // 🔥 IMAGE EXPORT (MAIN FEATURE)
   const exportImage = async () => {
     const cards = document.querySelectorAll(".card");
 
@@ -60,13 +63,11 @@ export default function App() {
   return (
     <div className="app">
 
-      {/* HERO */}
       <div className="hero">
         <h1>🚀 Social Media Studio</h1>
         <p>Turn your ideas into viral Instagram carousels ✨</p>
       </div>
 
-      {/* INPUT */}
       <div className="inputBox">
         <textarea
           value={idea}
@@ -87,21 +88,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* LOADER */}
-      {loading && (
-        <div className="loader">
-          Generating viral content...
-        </div>
-      )}
+      {loading && <div className="loader">Generating viral content...</div>}
 
-      {/* OUTPUT */}
       <div className="grid">
         {slides.map((s, i) => (
           <SlideCard key={i} text={s} index={i} />
         ))}
       </div>
 
-      {/* ACTIONS */}
       {slides.length > 0 && (
         <div className="actions">
           <button onClick={copyAll}>📋 Copy All</button>
