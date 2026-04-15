@@ -22,32 +22,46 @@ app.post("/generate", async (req, res) => {
       return res.status(400).json({ error: "Idea is required" });
     }
 
+    // 🔥 IMPROVED PROMPT
     const prompt = `
-Create an Instagram carousel on: "${idea}"
+Create 5 Instagram carousel slides on: "${idea}"
 
-Rules:
-- 5 slides only
+STRICT RULES:
+- Output EXACTLY 5 lines
 - Each line = one slide
+- No numbering
+- No bullets
 - Max 8 words per line
+- Line break after each slide
 - Slide 1 = strong hook
 - Slide 5 = CTA
-- Make it catchy, emotional, viral
+
+Example:
+Stop wasting your potential today
+You are your biggest distraction
+Consistency beats motivation daily
+Small habits create massive success
+Start today, not tomorrow 🚀
 `;
 
     const response = await client.chat.completions.create({
-      model: "mistralai/mistral-7b-instruct",
+      model: "openai/gpt-oss-120b:free", // 🔥 upgraded model
       messages: [{ role: "user", content: prompt }],
     });
 
     const text = response.choices[0].message.content;
 
+    // 🔥 DEBUG (important)
+    console.log("AI RESPONSE:\n", text);
+
     let slides = text
       .split("\n")
-      .map((s) => s.replace(/[-*]/g, "").trim())
+      .map((s) => s.replace(/[-*0-9.]/g, "").trim())
       .filter((s) => s.length > 3)
       .slice(0, 5);
 
-    if (slides.length === 0) {
+    // fallback only if AI fails
+    if (slides.length < 5) {
       slides = [
         "Why you forget things 😱",
         "No revision happens",
