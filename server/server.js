@@ -9,6 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 🔐 OpenRouter config
 const client = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
   baseURL: "https://openrouter.ai/api/v1",
@@ -22,7 +23,7 @@ app.post("/generate", async (req, res) => {
       return res.status(400).json({ error: "Idea is required" });
     }
 
-    // 🔥 IMPROVED PROMPT
+    // 🔥 STRONG PROMPT (fixed + optimized)
     const prompt = `
 Create 5 Instagram carousel slides on: "${idea}"
 
@@ -45,13 +46,13 @@ Start today, not tomorrow 🚀
 `;
 
     const response = await client.chat.completions.create({
-      model: "openai/gpt-oss-120b:free", // 🔥 upgraded model
+      model: "openai/gpt-oss-120b:free",
       messages: [{ role: "user", content: prompt }],
+      temperature: 0.9, // 🔥 more variation
     });
 
-    const text = response.choices[0].message.content;
+    const text = response.choices[0]?.message?.content || "";
 
-    // 🔥 DEBUG (important)
     console.log("AI RESPONSE:\n", text);
 
     let slides = text
@@ -60,7 +61,7 @@ Start today, not tomorrow 🚀
       .filter((s) => s.length > 3)
       .slice(0, 5);
 
-    // fallback only if AI fails
+    // fallback (only if AI fails)
     if (slides.length < 5) {
       slides = [
         "Why you forget things 😱",
@@ -75,18 +76,21 @@ Start today, not tomorrow 🚀
   } catch (err) {
     console.log("ERROR:", err.message);
 
-    res.json({
+    res.status(500).json({
       slides: [
-        "Why you forget things 😱",
-        "No revision happens",
-        "Focus is too low",
-        "No real connection",
-        "Start spaced repetition 🚀",
+        "Something went wrong 😅",
+        "AI not responding",
+        "Check API key",
+        "Try again later",
+        "We’ll fix it soon 🚀",
       ],
     });
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+// 🔥 IMPORTANT FIX FOR RENDER
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
