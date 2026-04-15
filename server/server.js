@@ -15,6 +15,11 @@ const client = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
 });
 
+// ✅ Health check route (IMPORTANT for Render)
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
 app.post("/generate", async (req, res) => {
   try {
     const { idea } = req.body;
@@ -23,7 +28,7 @@ app.post("/generate", async (req, res) => {
       return res.status(400).json({ error: "Idea is required" });
     }
 
-    // 🔥 STRONG PROMPT (fixed + optimized)
+    // 🔥 STRONG PROMPT
     const prompt = `
 Create 5 Instagram carousel slides on: "${idea}"
 
@@ -48,10 +53,10 @@ Start today, not tomorrow 🚀
     const response = await client.chat.completions.create({
       model: "openai/gpt-oss-120b:free",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.9, // 🔥 more variation
+      temperature: 0.9,
     });
 
-    const text = response.choices[0]?.message?.content || "";
+    const text = response.choices?.[0]?.message?.content || "";
 
     console.log("AI RESPONSE:\n", text);
 
@@ -61,7 +66,7 @@ Start today, not tomorrow 🚀
       .filter((s) => s.length > 3)
       .slice(0, 5);
 
-    // fallback (only if AI fails)
+    // fallback (safety)
     if (slides.length < 5) {
       slides = [
         "Why you forget things 😱",
@@ -74,7 +79,7 @@ Start today, not tomorrow 🚀
 
     res.json({ slides });
   } catch (err) {
-    console.log("ERROR:", err.message);
+    console.log("ERROR FULL:", err);
 
     res.status(500).json({
       slides: [
@@ -88,7 +93,7 @@ Start today, not tomorrow 🚀
   }
 });
 
-// 🔥 IMPORTANT FIX FOR RENDER
+// 🔥 MUST FOR RENDER
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
