@@ -1,16 +1,114 @@
-# React + Vite
+# 🚀 Social Media Studio  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Turn messy ideas into viral Instagram carousels — in seconds ⚡  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ What is this?
 
-## React Compiler
+Ever had a **great content idea**… but no clue how to turn it into an Instagram post?
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Same.  
 
-## Expanding the ESLint configuration
+So I built **Social Media Studio** —  
+a tool that converts a simple idea into a **ready-to-use carousel** using AI.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Type → Click → Get structured slides.  
+No overthinking. No blank screen.
+
+---
+
+## 🎯 What it does
+
+- 🧠 Takes a raw idea (even messy ones)
+- 🎨 Converts it into **5-slide carousel content**
+- 🔥 Applies storytelling automatically:
+  - Hook  
+  - Value  
+  - Insight  
+  - Build-up  
+  - CTA  
+- ⚡ Generates content in seconds  
+
+---
+
+## 🖥 Live Demo
+
+👉 https://social-media-studio-pi.vercel.app  
+
+Try typing:  
+`morning routine for productivity`  
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend:** React + Vite  
+- **Backend:** Node.js + Express  
+- **AI:** OpenRouter API  
+- **Deployment:**  
+  - Frontend → Vercel  
+  - Backend → Render  
+
+---
+
+## 🧠 Why I built this
+
+Content creation is slow.
+
+People spend more time **thinking what to write**  
+than actually creating content.
+
+I wanted to solve that.
+
+→ Reduce thinking friction  
+→ Speed up content creation  
+→ Make ideas usable instantly  
+
+---
+
+## 💀 Challenges I faced
+
+- Backend deployment issues (Render port mismatch)
+- Connecting frontend with deployed API
+- AI responses not always structured properly
+
+---
+
+## 🛠 How I solved them
+
+- Used `process.env.PORT` for dynamic port handling  
+- Updated frontend to use live backend URL  
+- Added fallback + formatting logic for consistent slides  
+
+---
+
+## 🚀 What’s next
+
+- 🎨 AI-generated images for each slide  
+- ✏️ Editable slides  
+- 🎯 Different formats (Reels, Stories)  
+- 🎨 Brand themes (colors, fonts)  
+
+---
+
+## 📸 Preview
+
+*(Add screenshots here later for extra impact 👀)*
+
+---
+
+## 🧑‍💻 Author
+
+**Aniket Singh**  
+B.Tech CS (Cyber Security)  
+Full-Stack Developer | Aspiring SDE 🚀  
+
+---
+
+## ⭐ Final Note
+
+This project is not perfect.  
+But it’s **real, deployed, and solves a real problem.**
+
+And that’s what matters.
