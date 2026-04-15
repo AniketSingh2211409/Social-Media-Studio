@@ -94,7 +94,8 @@ I wanted to solve that.
 
 ## 📸 Preview
 
-*(Add screenshots here later for extra impact 👀)*
+<img width="1920" height="907" alt="image" src="https://github.com/user-attachments/assets/f1bf1881-82e1-45ef-9fc6-2c256374f583" />
+
 
 ---
 
